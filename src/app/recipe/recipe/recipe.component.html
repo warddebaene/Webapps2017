@@ -1,0 +1,7 @@
+<p class="ui header">recipe for {{recipe.name}} </p>
+Ingredients: 
+<div >
+		<app-ingredient class="ui grid segment" *ngFor='let localRecipe of recipe.ingredients'
+		[ingredient]="localRecipe">
+		</app-ingredient>
+</div>

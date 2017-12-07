@@ -1,0 +1,36 @@
+<form class="ui large form segment" [formGroup]='recipe' (ngSubmit)='onSubmit()'>
+	<h3 class="ui header">Add recipe</h3>
+	<div class="field">
+		<label for="name_id">Name:</label>
+		<input type = "text" id="name_id"
+		formControlName="name">
+		<div *ngIf='recipe.get("name").errors?.required
+     	&& recipe.get("name").touched'  >
+    	error! this is required
+  		</div>
+		
+	</div>
+	<div class="field" formArrayName='ingredients' *ngFor='let item of recipe.get("ingredients").controls; let i = index '>
+	 <div  [formGroupName] = 'i'>
+	    <label for="ingredient_name">amount:</label>
+	    <div class="three fields">
+	        <input type="text" id="ingredient_amount"
+	           formControlName='amount'>
+	           <label for="ingredient_unittype">units:</label>
+	        	<select id="ingredient_unittype" formControlName='unit'>
+	          		<option *ngFor='let type of unitTypes' [value]='type'>
+	           			{{type}}
+	          		</option>
+	        </select>
+
+	        <label for="ingredient_name">Ingredientname:</label>
+	        <input type="text" id="ingredient_name"
+	           formControlName='ingredientname'>
+	    </div>
+	  </div>
+	</div>		
+	<button type='submit' [disabled]='!recipe.get("name").valid'
+			class="ui positive right floated button">
+		add recipe
+	</button>
+</form>

@@ -1,0 +1,7 @@
+.ng-valid.ng-touched[required]  {
+    border-left: 10px solid #42A948 !important;
+  }
+
+ .ng-invalid.ng-touched[required]  {
+    border-left: 10px solid #FF0000 !important;
+  }

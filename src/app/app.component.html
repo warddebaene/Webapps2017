@@ -1,7 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-     {{ HelloWorld }}
+  <h1 class="field">
+     {{ Titel }}
   </h1>  
 </div>
-
+<div class="ui container">
+  <div class="ui two item menu">
+    <a class='item' routerLinkActive='active' 
+      routerLink="/recipe/list" >Recipes</a>
+    <a class='item' routerLinkActive='active' 
+      routerLink="recipe/add" >Add Recipe</a>
+  </div>
+  <router-outlet></router-outlet>
+</div>
