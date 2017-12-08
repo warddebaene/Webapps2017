@@ -1,5 +1,5 @@
 <form class="ui large form segment" [formGroup]='recipe' (ngSubmit)='onSubmit()'>
-	<h3 class="ui header">Add recipe</h3>
+	<h3 class="ui header">Add recipe{{Testrecipe.duration}}</h3>
 	<div class="field">
 		<label for="name_id">Name:</label>
 		<input type = "text" id="name_id"
@@ -7,9 +7,22 @@
 		<div *ngIf='recipe.get("name").errors?.required
      	&& recipe.get("name").touched'  >
     	error! this is required
-  		</div>
-		
+  		</div>		
 	</div>
+	<div class="field">
+		<label for="duration_id">Estimated durations:</label>
+		<input type = "text" id="duration_id"
+		formControlName="duration">
+		<div *ngIf='recipe.get("duration").errors?.required
+     	&& recipe.get("duration").touched'  >
+    	error! this is required
+  		</div>		
+	</div>
+	<div class="field">
+		<label for="allergies_id">Allergies:</label>
+		<input type = "text" id="allergies_id"
+		formControlName="allergies">			
+	</div>	
 	<div class="field" formArrayName='ingredients' *ngFor='let item of recipe.get("ingredients").controls; let i = index '>
 	 <div  [formGroupName] = 'i'>
 	    <label for="ingredient_name">amount:</label>
@@ -28,9 +41,24 @@
 	           formControlName='ingredientname'>
 	    </div>
 	  </div>
-	</div>		
+	</div>
+	<div class="field">
+		<label for="directions_id">directions:</label>
+		<input type = "text" id="directions_id"
+		formControlName="directions">
+		<div *ngIf='recipe.get("directions").errors?.required
+     	&& recipe.get("directions").touched'  >
+    	error! this is required
+  		</div>		
+	</div>
+			
 	<button type='submit' [disabled]='!recipe.get("name").valid'
 			class="ui positive right floated button">
 		add recipe
 	</button>
+	{{Testrecipe.name}}n/
+	{{Testrecipe.duration}}d/
+	{{Testrecipe.id}}i/
+	{{Testrecipe.allergies}}a/
+	{{Testrecipe.directions}}ad/
 </form>

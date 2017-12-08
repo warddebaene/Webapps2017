@@ -1,7 +1,13 @@
 <p class="ui header">recipe for {{recipe.name}} </p>
-Ingredients: 
-<div >
-		<app-ingredient class="ui grid segment" *ngFor='let localRecipe of recipe.ingredients'
-		[ingredient]="localRecipe">
-		</app-ingredient>
-</div>
+<p>Estimated time :{{recipe.duration}} {{test}}
+</p>
+<p>likes :{{recipe.likes}} </p>
+<button (click)='detailsRecipe()' 
+			class="ui positive right floated button">
+		Details
+	</button>
+	<button (click)='removeRecipe()' 
+			class="ui positive left floated button">
+		remove
+	</button>
+

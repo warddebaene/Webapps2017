@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray,  AbstractControl, ValidatorFn } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
+import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 
   function passwordValidator(length: number): ValidatorFn {
@@ -23,7 +25,12 @@ function comparePasswords(control: AbstractControl): { [key: string]: any } {
 })
 export class RegisterComponent implements OnInit {
  public user: FormGroup;
-  constructor() { }
+
+ get passwordControl(): FormControl {
+    return <FormControl>this.user.get('passwordGroup').get('password');
+  }
+
+  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
   this.user = this.fb.group({
@@ -36,5 +43,22 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  serverSideValidateUsername(): ValidatorFn {
+    return (control: AbstractControl): Observable<{ [key: string]: any }> => {
+      return this.authenticationService.checkUserNameAvailability(control.value).map(available => {
+        if (available) {
+          return null;
+        }
+        return { userAlreadyExists: true };
+      })
+    };
+  }
 
+  onSubmit() {
+    this.authenticationService.register(this.user.value.username, this.passwordControl.value).subscribe(val => {
+      if (val) {
+        this.router.navigate(['/recipe/list']);
+      }
+    });
+  }
 }

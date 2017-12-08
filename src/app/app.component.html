@@ -5,11 +5,17 @@
   </h1>  
 </div>
 <div class="ui container">
-  <div class="ui two item menu">
+  <div class="ui five item menu">
     <a class='item' routerLinkActive='active' 
-      routerLink="/recipe/list" >Recipes</a>
+      routerLink="/users" >users</a>
+      <a class='item' routerLinkActive='active' 
+      routerLink="/friends" >my Friends</a>
+    <a class='item' routerLinkActive='active' 
+      routerLink="/recipe/list" >my Recipes</a>
     <a class='item' routerLinkActive='active' 
       routerLink="recipe/add" >Add Recipe</a>
+      <a class='item' routerLinkActive='active' 
+      routerLink="logout" >logout</a>
   </div>
   <router-outlet></router-outlet>
 </div>

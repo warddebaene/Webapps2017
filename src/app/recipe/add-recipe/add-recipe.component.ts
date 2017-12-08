@@ -6,6 +6,7 @@ import { RecipeDataService } from '../recipe-data.service';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,19 +15,26 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./add-recipe.component.css']
 })
 export class AddRecipeComponent implements OnInit {
-	@Output() public newRecipe = new EventEmitter<Recipe>();
   private recipe: FormGroup;
+  private Testrecipe : Recipe;
   public readonly unitTypes = ['', 'Liter', 'Gram', 'Tbsp'];
+  
+  constructor(private fb: FormBuilder, private _recipeDataService: RecipeDataService, private router: Router) { }
 
-
-  constructor(private fb: FormBuilder, private _recipeDataService: RecipeDataService) { }
   get ingredients(): FormArray {
     return <FormArray>this.recipe.get('ingredients');
   }
+  get testrecipe(): Recipe{
+  return this.Testrecipe;
+  }
 
   ngOnInit() {
+  this.Testrecipe = new Recipe("test","","");
       this.recipe = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
+      duration: ['', [Validators.required]],
+      allergies: ['', [Validators.required]],
+      directions: ['', [Validators.required]],
       ingredients: this.fb.array([ this.createIngredients() ])
     });
 
@@ -34,21 +42,20 @@ export class AddRecipeComponent implements OnInit {
       if (data === 'VALID') {
         this.ingredients.push(this.createIngredients());
       }
-    });
-    
+    });    
   }
 
 
-  createIngredients(): FormGroup {
+ createIngredients(): FormGroup {
     return this.fb.group({
-    amount: [''],
+      amount: [''],
       unit: [''],
-      ingredientname: ['', [Validators.required, Validators.minLength(2)]]
+      ingredientname: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
   onSubmit() {
-    const recipe = new Recipe(this.recipe.value.name);
+  const recipe = new Recipe(this.recipe.value.name,this.recipe.value.duration,this.recipe.value.allergies,this.recipe.value.directions,JSON.parse(localStorage.getItem('currentUser')).username, 1);
     for (const ing of this.recipe.value.ingredients) {
       if (ing.ingredientname.length > 2) {
         const ingredient = new Ingredient(ing.ingredientname, ing.amount, ing.unit );
@@ -68,5 +75,7 @@ export class AddRecipeComponent implements OnInit {
         return item;
       }); 
     }); 
+    this.router.navigate(['']);
+    
   }
 }

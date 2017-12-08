@@ -10,15 +10,15 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 })
 export class RecipeDetailComponent implements OnInit {
 	private _recipe: Recipe;
+
   constructor(private route: ActivatedRoute,private recipeDataService: RecipeDataService) { }
 
-  get recipe(){
+  get recipe() : Recipe{
   return this._recipe;
   }
 
   ngOnInit() {
-  this.route.data.subscribe(item => 
-    this._recipe = item['recipe']);
+  this.recipeDataService.getRecipe(localStorage.getItem('currentRecipe')).subscribe(item => this._recipe = item);
   }
 
 }

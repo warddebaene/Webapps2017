@@ -18,5 +18,9 @@ export class RecipeListComponent implements OnInit {
   get recipes(){
   return this._recipes;
   }
+  refresh(){
+  this._recipeDataService.recipes
+      .subscribe(items => this._recipes = items);
+  }
 
 }

@@ -1,3 +1,13 @@
-<p>
-  {{recipe.name}}
-</p>
+<p class="ui header">recipe for {{recipe.name}} </p>
+<p>Estimated time :{{recipe.duration}} </p>
+<p>likes :{{recipe.likes}} </p>
+<p>Allergies :{{recipe.allergies}} </p>
+<p>Creator :{{recipe.creator}} </p>
+<p>Ingredients: </p>
+<div >
+		<app-ingredient class="ui grid segment" *ngFor='let localRecipe of recipe.ingredients'
+		[ingredient]="localRecipe">
+		</app-ingredient>
+</div>
+<p>Directions : </p>
+<p>{{recipe.directions}}</p>

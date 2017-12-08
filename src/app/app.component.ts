@@ -7,7 +7,8 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	Titel = "Foodster";
+	Titel = "dsk";
+	//JSON.parse(localStorage.getItem('currentUser')).username;
 
 
   constructor() {

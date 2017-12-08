@@ -1,0 +1,7 @@
+{{user.name}}
+{{friends}}
+<div class="ui grid segment">
+	<app-user-detail *ngFor='let localFriend of recipes'
+		[user]="localFriend">
+	</app-user-detail>
+</div>
