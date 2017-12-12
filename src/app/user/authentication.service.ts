@@ -82,7 +82,7 @@ register(username: string, password: string): Observable<boolean> {
   }
 
   logout() {
-  if (this.user$.getValue()) {
+  if (this.user.getValue()) {
     localStorage.removeItem('currentUser');
     setTimeout(() => this._user.next(null));
   }      
