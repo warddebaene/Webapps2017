@@ -4,8 +4,8 @@
 		<label for="name_id">Name:</label>
 		<input type = "text" id="name_id"
 		formControlName="name">
-		<div *ngIf='recipe.get("name").errors?.required
-     	&& recipe.get("name").touched'  >
+		<div *ngIf='recipeForm.get("name").errors?.required
+     	&& recipeForm.get("name").touched'  >
     	error! this is required
   		</div>		
 	</div>
@@ -13,8 +13,8 @@
 		<label for="duration_id">Estimated durations:</label>
 		<input type = "text" id="duration_id"
 		formControlName="duration">
-		<div *ngIf='recipe.get("duration").errors?.required
-     	&& recipe.get("duration").touched'  >
+		<div *ngIf='recipeForm.get("duration").errors?.required
+     	&& recipeForm.get("duration").touched'  >
     	error! this is required
   		</div>		
 	</div>
@@ -23,7 +23,7 @@
 		<input type = "text" id="allergies_id"
 		formControlName="allergies">			
 	</div>	
-	<div class="field" formArrayName='ingredients' *ngFor='let item of recipe.get("ingredients"); let i = index '>
+	<div class="field" formArrayName='ingredients' *ngFor='let item of recipeForm.get("ingredients"); let i = index '>
 	 <div  [formGroupName] = 'i'>
 	    <label for="ingredient_name">amount:</label>
 	    <div class="three fields">
@@ -46,13 +46,13 @@
 		<label for="directions_id">directions:</label>
 		<input type = "text" id="directions_id"
 		formControlName="directions">
-		<div *ngIf='recipe.get("directions").errors?.required
-     	&& recipe.get("directions").touched'  >
+		<div *ngIf='recipeForm.get("directions").errors?.required
+     	&& recipeForm.get("directions").touched'  >
     	error! this is required
   		</div>		
 	</div>
 			
-	<button type='submit' [disabled]='!recipe.get("name").valid'
+	<button type='submit' [disabled]='!recipeForm.get("name").valid'
 			class="ui positive right floated button">
 		add recipe
 	</button>
