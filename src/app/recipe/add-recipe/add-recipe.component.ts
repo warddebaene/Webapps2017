@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 })
 export class AddRecipeComponent implements OnInit {
   private recipe: FormGroup;
-  private Testrecipe : Recipe;
   public readonly unitTypes = ['', 'Liter', 'Gram', 'Tbsp'];
   
   constructor(private fb: FormBuilder, private _recipeDataService: RecipeDataService, private router: Router) { }
@@ -24,12 +23,11 @@ export class AddRecipeComponent implements OnInit {
   get ingredients(): FormArray {
     return <FormArray>this.recipe.get('ingredients');
   }
-  get testrecipe(): Recipe{
-  return this.Testrecipe;
+  get recipeForm(): FormGroup{
+  return this.recipe;
   }
 
   ngOnInit() {
-  this.Testrecipe = new Recipe("test","","");
       this.recipe = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       duration: ['', [Validators.required]],
