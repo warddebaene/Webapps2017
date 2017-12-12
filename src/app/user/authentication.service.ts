@@ -17,7 +17,7 @@ export class AuthenticationService {
     this._user = new BehaviorSubject<string>(currentUser && currentUser.username);
   }
 
-  get user$(): BehaviorSubject<string> {
+  get user(): BehaviorSubject<string> {
     return this._user;
   }   
 
