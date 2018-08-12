@@ -7,6 +7,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../user/authentication.service';
+import { User } from '../../user/user.model';
 
 
 @Component({
@@ -16,9 +18,10 @@ import { Router } from '@angular/router';
 })
 export class AddRecipeComponent implements OnInit {
   private recipe: FormGroup;
-  public readonly unitTypes = ['', 'Liter', 'Gram', 'Tbsp'];
+  public readonly unitTypes = ['', 'Liter', 'Gram', 'Tbsp'];  
+  private _user: User;
   
-  constructor(private fb: FormBuilder, private _recipeDataService: RecipeDataService, private router: Router) { }
+  constructor(private fb: FormBuilder, private _recipeDataService: RecipeDataService, private router: Router, private _userDataService: AuthenticationService ) { }
 
   get ingredients(): FormArray {
     return <FormArray>this.recipe.get('ingredients');
@@ -28,6 +31,8 @@ export class AddRecipeComponent implements OnInit {
   }
 
   ngOnInit() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this._userDataService.getUser(currentUser.id).subscribe(item => this._user = item);
       this.recipe = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       duration: ['', [Validators.required]],
@@ -53,7 +58,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
   onSubmit() {
-  const recipe = new Recipe(this.recipe.value.name,this.recipe.value.duration,this.recipe.value.allergies,this.recipe.value.directions,JSON.parse(localStorage.getItem('currentUser')).username, 1);
+  var recipe = new Recipe(this.recipe.value.name,this.recipe.value.duration,this.recipe.value.allergies,this.recipe.value.directions,JSON.parse(localStorage.getItem('currentUser')).username, 1);
     for (const ing of this.recipe.value.ingredients) {
       if (ing.ingredientname.length > 2) {
         const ingredient = new Ingredient(ing.ingredientname, ing.amount, ing.unit );
@@ -61,7 +66,9 @@ export class AddRecipeComponent implements OnInit {
       }      
     }
 
+    
      this._recipeDataService.newRecipeAdded(recipe).subscribe(item => {
+      this._userDataService.addRecipeToUser(item.id,this._user).subscribe();
       const ingr = recipe.ingredients.map(ing => 
       this._recipeDataService.addIngredientToRecipe(ing, item));
       
@@ -71,9 +78,8 @@ export class AddRecipeComponent implements OnInit {
           item.addIngredient(ing);
         }
         return item;
-      }); 
-    }); 
+      });
     this.router.navigate(['']);
-    
+    });     
   }
 }

@@ -1,7 +1,11 @@
 <p class="ui header">recipe for {{recipe.name}} </p>
 <p>Estimated time :{{recipe.duration}}
 </p>
-<p>likes :{{recipe.likes}} </p>
+<p>likes :{{recipe.likes}} <button (click)='upvoteRecipe()' 
+			class="ui positive right floated button">		
+	</button><button (click)='downvoteRecipe()' 
+			class="ui positive right floated button">
+	</button> </p>
 <button (click)='detailsRecipe()' 
 			class="ui positive right floated button">
 		Details

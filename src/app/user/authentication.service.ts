@@ -68,10 +68,19 @@ register(username: string, password: string): Observable<boolean> {
       }
     });
   }
-  getUser(id) : Observable<User> {
-    return this.http.get(`${this._url}/getID/${id}/`).map(response =>
+
+  addRecipeToUser(recipeid: string, user: User) :  Observable<User>{
+    return this.http.post(`${this._url}/addrecipe/${user.id}`, { recipeid: recipeid }).map(res => res.json());
+  }
+  addFriendToUser(friendid: string, userid: string) :  Observable<User>{
+    return this.http.post(`${this._url}/addfriend/${userid}`, { userid: friendid }).map(res => res.json());
+  }
+
+
+  getUser(id) :  Observable<User> {
+    return this.http.get(`${this._url}/user/${id}/`).map(response =>
       response.json()).map(item =>
-        new User(item.username,item._id,item.recipes,item.friends)
+        User.fromJSON(item)
       );
   }
 

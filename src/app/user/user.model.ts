@@ -3,14 +3,16 @@
 export class User {
 	private _id: string;
 	private _name: string;
+	private _firstname : string;
+	private _lastname : string;
+	private _birthdate : Date;
 	private _recipes = new Array<string>();
-	private _friends = new Array<User>();
+	private _friends = new Array<string>();
 	static fromJSON(json): User {
-        const use = new User(  json.name,json._id,json.recipes,  json.friends);
+        const use = new User(  json.username,json._id,json.recipes,  json.friends);
         return use;
     }
-    
-	constructor(name: string, id?: string, recipes?: string[], friends?: User[]) {
+	constructor(name: string, id?: string, recipes?: string[], friends?: string[]) {
 		this._name = name;
 		this._id = id;
 		this._recipes = recipes;
@@ -34,10 +36,10 @@ export class User {
 	set recipes(recipes: string[]){
 		this._recipes = recipes;
 	}
-	get friends() : User[]{
+	get friends() : string[]{
 		return this._friends;
 	}
-	set friends(friends: User[]){
+	set friends(friends: string[]){
 		this._friends = friends;
 	}
 

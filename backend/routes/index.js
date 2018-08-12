@@ -56,6 +56,23 @@ router.delete('/API/recipe/:recipe', auth, function(req, res, next) {
     })
 });
 
+router.get('/API/upvote/:recipe', function(req, res, next) {
+      req.recipe.likes++;
+      req.recipe.save(function (err){
+      if(err){ return next(err); }
+      return res.json(req.recipe);
+  });
+});
+
+router.get('/API/downvote/:recipe', function(req, res, next) {
+      req.recipe.likes--;
+      req.recipe.save(function (err){
+      if(err){ return next(err); }
+      return res.json(req.recipe);
+  });
+});
+
+
 router.post('/API/recipe/:recipe/ingredients',
   function(req, res, next) {
     let ing = new Ingredient(req.body);

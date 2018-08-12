@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	Titel = "dsk";
+	Titel = "RecipeApp";
 	//JSON.parse(localStorage.getItem('currentUser')).username;
 
 

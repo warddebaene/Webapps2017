@@ -11,9 +11,13 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class UserDetailComponent implements OnInit {
 @Input() public user: User;
+  private _loggedinUser: User;
   constructor(private _authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this._authenticationService.getUser(currentUser.id).subscribe(item => this._loggedinUser = item);
+
   }
   removeRecipe() : boolean{
   //this._authenticationService.addFriend(this.user).subscribe();
@@ -22,6 +26,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   addFriend() : boolean{
+  this._authenticationService.addFriendToUser(this.user.id,this._loggedinUser.id).subscribe();
   return false;
   }
 

@@ -29,6 +29,20 @@ private _recipes = new Array<Recipe>();
       );
   }
 
+  upvoteRecipe(id) : Observable<Recipe> {
+    return this.http.get(`${this._appUrl}/upvote/${id}/`,{ headers: new Headers({Authorization: `Bearer ${this.auth.token}`}) }).map(response =>
+      response.json()).map(item =>
+        Recipe.fromJSON(item)
+      );
+  }
+
+  downvoteRecipe(id) : Observable<Recipe> {
+    return this.http.get(`${this._appUrl}/downvote/${id}/`,{ headers: new Headers({Authorization: `Bearer ${this.auth.token}`}) }).map(response =>
+      response.json()).map(item =>
+        Recipe.fromJSON(item)
+      );
+  }
+
   newRecipeAdded(rec): Observable<Recipe> {
     return this.http.post(`${this._appUrl}/recipes`, rec,{ headers: new Headers({Authorization: `Bearer ${this.auth.token}`}) })
      .map(res => res.json()).map(item =>
