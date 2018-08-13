@@ -33,6 +33,24 @@ export class User {
 	set name(name: string){
 		this._name = name;
 	}
+	get firstname() : string{
+		return this._firstname;
+	}
+	set firstname(firstname: string){
+		this._firstname = firstname;
+	}
+	get lastname() : string{
+		return this._lastname;
+	}
+	set lastname(lastname: string){
+		this._lastname = lastname;
+	}
+	get birthdate() : Date{
+		return this._birthdate;
+	}
+	set birthdate(birthdate: Date){
+		this._birthdate = birthdate;
+	}
 	get recipes() : string[]{
 		return this._recipes;
 	}

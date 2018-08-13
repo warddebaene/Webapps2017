@@ -18,4 +18,8 @@ private _user : User;
   );
   }
 
+  get user() : User{
+  return this._user;
+  }
+
 }
