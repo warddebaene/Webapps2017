@@ -18,6 +18,14 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit() {
   }
+  upvoteRecipe() : boolean{
+  this.recipeDataService.upvoteRecipe(this.recipe.id).subscribe(item => this.recipe = item);
+  return false;
+  }
+  downvoteRecipe() : boolean{
+  this.recipeDataService.downvoteRecipe(this.recipe.id).subscribe(item => this.recipe = item);
+  return false;
+  }
 
   removeRecipe() : boolean{
   this.recipeDataService.deleteRecipe(this.recipe).subscribe();

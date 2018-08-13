@@ -24,31 +24,30 @@ router.param('user', function(req, res, next, id) {
 }); 
 
 router.get('/all', function(req, res, next) {
-  let query = User.find().populate('friends');
+  let query = User.find();
   query.exec(function(err, users) {
     if (err) return next(err);
     res.json(users);
   })
 });
 router.get('/user/:user', function(req, res, next) {
-  req.user.populate('friends', function(err, use) {
-      if (err) return next(err);
-      res.json(use);
-    });
+      res.json(req.user);
 });
 
 router.post('/register', function(req, res, next){
-  if(!req.body.username || !req.body.password){
+  if(!req.body.user.username || !req.body.password){
       return res.status(400).json(
         {message: 'Please fill out all fields'});
   }
   var user = new User();
-  user.username = req.body.username;
-  user.friends = ["5a29c21ca24472142c8fd703"];
+  user.username = req.body.user.username;
+  user.firstname = req.body.user.firstname;
+  user.lastname = req.body.user.lastname;
+  user.birthdate = req.body.user.birthdate;
   user.setPassword(req.body.password)
   user.save(function (err){
       if(err){ return next(err); }
-      return res.json({token: user.generateJWT()})
+      return res.json({token: user.generateJWT(),id: user._id})
   });
 });
 
@@ -76,25 +75,20 @@ router.post('/checkusername', function(req, res, next) {
     });
 });
 
-router.get('/getID/:user', function(req, res, next) {
-   req.user.populate('friends', function(err, use) {
-      if (err) return next(err);
-      res.json(use);
-    });
-});
-router.post('user/:user/friends', function(req, res, next) {
-    let ing = new User(req.body);
-
-    ing.save(function(err, user) {
-      if (err) return next(err);
-      
-      req.user.friends.push(user);
-      req.user.save(function(err, rec) {
-        if (err) return next(err);
-        res.json(user);
-      })
-    });
+router.post('/addrecipe/:user', function(req, res, next) {
+      req.user.recipes.push(req.body.recipeid);
+      req.user.save(function (err){
+      if(err){ return next(err); }
+      return res.json(req.user);
   });
+});
+router.post('/addfriend/:user', function(req, res, next) {
 
+      req.user.friends.push(req.body.userid);
+      req.user.save(function (err){
+      if(err){ return next(err); }
+      return res.json(req.user);
+  });
+});
 
 module.exports = router;

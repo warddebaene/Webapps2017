@@ -36,6 +36,9 @@ export class RegisterComponent implements OnInit {
   this.user = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4)], 
         this.serverSideValidateUsername()],
+        firstname: ['', [Validators.required, Validators.minLength(4)]],
+        lastname: ['', [Validators.required, Validators.minLength(4)]],
+        birthdate: ['', Validators.required],
       passwordGroup: this.fb.group({
         password: ['', [Validators.required, passwordValidator(6)]],
         confirmPassword: ['', Validators.required]
@@ -55,7 +58,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authenticationService.register(this.user.value.username, this.passwordControl.value).subscribe(val => {
+    this.authenticationService.register(this.user.value.username,this.user.value.firstname,this.user.value.lastname,this.user.value.birthdate, this.passwordControl.value).subscribe(val => {
       if (val) {
         this.router.navigate(['/recipe/list']);
       }

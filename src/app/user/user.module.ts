@@ -11,12 +11,14 @@ import { LogoutComponent } from './logout/logout.component';
 import { FriendsComponent } from './friends/friends.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UsersComponent } from './users/users.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes = [
   { path: 'login', component: LoginComponent },  
   { path: 'logout', component: LogoutComponent },
   { path: 'users', component: UsersComponent },
   { path: 'friends', component: FriendsComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent }
 ];
 
@@ -27,7 +29,7 @@ const routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LoginComponent, RegisterComponent, LogoutComponent, FriendsComponent, UserDetailComponent, UsersComponent],
+  declarations: [LoginComponent, RegisterComponent, LogoutComponent, FriendsComponent, UserDetailComponent, UsersComponent, ProfileComponent],
   providers: [
     AuthenticationService,
     AuthGuardService

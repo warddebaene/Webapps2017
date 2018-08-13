@@ -5,10 +5,12 @@ let jwt = require('jsonwebtoken');
 var UserSchema = new mongoose.Schema({
 	username: { type: String, lowercase: true, 
 		unique: true },
+    firstname: String,
+    lastname: String,
+    birthdate: Date,
   	hash: String,
   	salt: String,
-    friends: [{type: mongoose.Schema.Types.ObjectId, 
-      ref: 'User'}],
+    friends: [String],
     recipes: [String]
 });
 

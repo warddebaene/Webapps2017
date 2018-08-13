@@ -8,21 +8,35 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent implements OnInit {
+  private _friends = new Array<User>();
 	private _user : User;
-	private _friends : User[];
 
   constructor(private _authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-  //this._authenticationService.getUserFriends(JSON.parse(localStorage.getItem('currentUser')).id).subscribe(item => this._friends =item.friends);
+
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  this._authenticationService.getUser(currentUser.id).subscribe(item =>{ 
+  this._user = item
+  for(let entry in this._user.friends){
+  this._authenticationService.getUser(this._user.friends[entry])
+      .subscribe(
+      user => this._friends.push(user)
+      )
+      }
+  });  
+  }
+
+
+  get friends(){
+  return this._friends;
+  }
+  test() : boolean{
+  return false;
   }
 get user(){
   
   return this._user;
-  }
-  get friends(){
-
-  return this._friends;
   }
 
 }
