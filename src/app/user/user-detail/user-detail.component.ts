@@ -27,7 +27,7 @@ export class UserDetailComponent implements OnInit {
   }
   viewProfile() : boolean{
    localStorage.setItem('selectedUser',this.user.id);
-  this.router.navigate(['profile/']);
+  this.router.navigate(['/recipe/profile']);
   return
   }
   addFriend() : boolean{
