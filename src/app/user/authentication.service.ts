@@ -42,14 +42,16 @@ export class AuthenticationService {
     });
 } 
 
-register(username: string, password: string): Observable<boolean> {
+register(username: string,firstname: string,lastname: string,birthdate: Date, password: string): Observable<boolean> {
+    let user = new User(username,firstname,lastname,birthdate);
     return this.http.post(`${this._url}/register`, 
-      { username: username, password: password })
+      { user: user, password: password })
       .map(res => res.json()).map(res => {
         const token = res.token;
+        const id = res.id;
         if (token) {
           localStorage.setItem('currentUser', 
-            JSON.stringify({ username: username, token: res.token }));
+            JSON.stringify({ username: username, token: token, id: id}));
           this._user$.next(username);
           return true;
         } else {

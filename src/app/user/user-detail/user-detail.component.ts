@@ -1,6 +1,7 @@
 
 import { User } from '../user.model';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../authentication.service';
 
@@ -12,7 +13,7 @@ import { AuthenticationService } from '../authentication.service';
 export class UserDetailComponent implements OnInit {
 @Input() public user: User;
   private _loggedinUser: User;
-  constructor(private _authenticationService: AuthenticationService) { }
+  constructor(private router: Router, private _authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -24,7 +25,11 @@ export class UserDetailComponent implements OnInit {
   //this.router.navigate(['']);
   return false;
   }
-
+  viewProfile() : boolean{
+   localStorage.setItem('selectedUser',this.user.id);
+  this.router.navigate(['profile/']);
+  return
+  }
   addFriend() : boolean{
   this._authenticationService.addFriendToUser(this.user.id,this._loggedinUser.id).subscribe();
   return false;
