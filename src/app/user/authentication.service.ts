@@ -88,10 +88,9 @@ register(username: string,firstname: string,lastname: string,birthdate: Date, pa
 
   get allusers(): Observable<User[]> {
     return this.http.get(`${this._url}/all`)
-      .map(response => response.json().map(item => new User(item.username,item._id,item.recipes,item.friends)));
+      .map(response => response.json().map(item => new User(  item.username,item.firstname,item.lastname,item.birthdate,item._id,item.recipes,  item.friends)));
 
   }
-
   logout() {
   if (this.user$.getValue()) {
     localStorage.removeItem('currentUser');
