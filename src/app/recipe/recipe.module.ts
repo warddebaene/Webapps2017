@@ -12,6 +12,8 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeResolver } from './recipe-resolver.service';
 import { ProfiledetailComponent } from './profiledetail/profiledetail.component';
 
+import { UserModule } from '../user/user.module';
+
 const routes = [
   { path: 'list', component: RecipeListComponent },
   { path: 'profile', component: ProfiledetailComponent },
@@ -23,7 +25,9 @@ const routes = [
 @NgModule({
   imports: [
     HttpModule,
+    UserModule,
     CommonModule,
+    UserModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],

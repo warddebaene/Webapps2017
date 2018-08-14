@@ -18,7 +18,7 @@ const routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'users', component: UsersComponent },
   { path: 'friends', component: FriendsComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profiletest', component: ProfileComponent },
   { path: 'register', component: RegisterComponent }
 ];
 
@@ -34,7 +34,7 @@ const routes = [
     AuthenticationService,
     AuthGuardService
   ],
-  exports: [
+  exports: [FriendsComponent
   ]
 })
 export class UserModule { }

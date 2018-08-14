@@ -18,6 +18,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this._authenticationService.getUser(currentUser.id).subscribe(item => this._loggedinUser = item);
+      
 
   }
   removeRecipe() : boolean{
@@ -26,10 +27,15 @@ export class UserDetailComponent implements OnInit {
   return false;
   }
   viewProfile() : boolean{
-   localStorage.setItem('selectedUser',this.user.id);
-  this.router.navigate(['/recipe/profile']);
-  return
+
+  localStorage.setItem('selectedUser',this.user.id);
+  if(this.router.url == "/users")
+    this.router.navigate(['/recipe/profile']);
+  else    
+    window.location.reload();
+  return;
   }
+
   addFriend() : boolean{
   this._authenticationService.addFriendToUser(this.user.id,this._loggedinUser.id).subscribe();
   return false;

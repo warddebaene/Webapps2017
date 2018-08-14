@@ -1,4 +1,9 @@
 <p class="ui header">profile of  {{user.name}} </p>
+
+	<button (click)='seeAll()' id="button"
+			class="ui positive right floated button">
+		{{buttonvalue}}
+	</button>
 <p>first name :{{user.firstname}} </p>
 <p>last name :{{user.lastname}} </p>
 <p>birth date :{{user.birthdate}} </p>
@@ -8,9 +13,5 @@
 
 <p>friends: </p>
 <div >
+	<app-friends></app-friends>
 </div>
-
-	<button (click)='seeAll()' 
-			class="ui positive right floated button">
-		remove
-	</button>

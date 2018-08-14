@@ -23,6 +23,7 @@ export class RecipeListComponent implements OnInit {
       .subscribe(rec => this._recipes.push(rec))
       }  
   });
+  localStorage.setItem('selectedUser', currentUser.id)
   }
   get recipes(){
   return this._recipes;
