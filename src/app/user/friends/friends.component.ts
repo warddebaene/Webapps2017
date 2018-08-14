@@ -16,7 +16,7 @@ export class FriendsComponent implements OnInit {
   ngOnInit() {
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  this._authenticationService.getUser(currentUser.id).subscribe(item =>{ 
+  this._authenticationService.getUser(localStorage.getItem('selectedUser')).subscribe(item =>{ 
   this._user = item
   for(let entry in this._user.friends){
   this._authenticationService.getUser(this._user.friends[entry])

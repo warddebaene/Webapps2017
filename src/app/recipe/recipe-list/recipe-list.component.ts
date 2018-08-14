@@ -16,13 +16,13 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  this._userDataService.getUser(currentUser.id).subscribe(item =>{ 
+  this._userDataService.getUser(localStorage.getItem('selectedUser')).subscribe(item =>{ 
   this._user = item
   for(let entry in this._user.recipes){
   this._recipeDataService.getRecipe(this._user.recipes[entry])
       .subscribe(rec => this._recipes.push(rec))
-      }
-  });  
+      }  
+  });
   }
   get recipes(){
   return this._recipes;

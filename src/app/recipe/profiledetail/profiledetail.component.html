@@ -1,3 +1,16 @@
-<p>
-  profiledetail works!
-</p>
+<p class="ui header">profile of  {{user.name}} </p>
+<p>first name :{{user.firstname}} </p>
+<p>last name :{{user.lastname}} </p>
+<p>birth date :{{user.birthdate}} </p>
+<p>recipes: </p>
+	<app-recipe-list>
+	</app-recipe-list>
+
+<p>friends: </p>
+<div >
+</div>
+
+	<button (click)='seeAll()' 
+			class="ui positive right floated button">
+		remove
+	</button>
