@@ -29,10 +29,10 @@ export class UserDetailComponent implements OnInit {
   viewProfile() : boolean{
 
   localStorage.setItem('selectedUser',this.user.id);
-  if(this.router.url == "/users")
-    this.router.navigate(['/recipe/profile']);
-  else    
+  if(this.router.url == "/recipe/profile")
     window.location.reload();
+  else    
+    this.router.navigate(['/recipe/profile']);
   return;
   }
 

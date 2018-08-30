@@ -23,14 +23,14 @@ router.param('user', function(req, res, next, id) {
   });
 }); 
 
-router.get('/all', function(req, res, next) {
+router.get('/all',auth, function(req, res, next) {
   let query = User.find();
   query.exec(function(err, users) {
     if (err) return next(err);
     res.json(users);
   })
 });
-router.get('/user/:user', function(req, res, next) {
+router.get('/user/:user',auth, function(req, res, next) {
       res.json(req.user);
 });
 
@@ -75,14 +75,14 @@ router.post('/checkusername', function(req, res, next) {
     });
 });
 
-router.post('/addrecipe/:user', function(req, res, next) {
+router.post('/addrecipe/:user',auth, function(req, res, next) {
       req.user.recipes.push(req.body.recipeid);
       req.user.save(function (err){
       if(err){ return next(err); }
       return res.json(req.user);
   });
 });
-router.post('/addfriend/:user', function(req, res, next) {
+router.post('/addfriend/:user',auth, function(req, res, next) {
 
       req.user.friends.push(req.body.userid);
       req.user.save(function (err){

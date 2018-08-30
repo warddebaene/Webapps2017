@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { User } from './user.model';
 import 'rxjs/add/operator/map';
 
@@ -72,22 +72,22 @@ register(username: string,firstname: string,lastname: string,birthdate: Date, pa
   }
 
   addRecipeToUser(recipeid: string, user: User) :  Observable<User>{
-    return this.http.post(`${this._url}/addrecipe/${user.id}`, { recipeid: recipeid }).map(res => res.json());
+    return this.http.post(`${this._url}/addrecipe/${user.id}`, { recipeid: recipeid },{ headers: new Headers({Authorization: `Bearer ${this.token}`}) }).map(res => res.json());
   }
   addFriendToUser(friendid: string, userid: string) :  Observable<User>{
-    return this.http.post(`${this._url}/addfriend/${userid}`, { userid: friendid }).map(res => res.json());
+    return this.http.post(`${this._url}/addfriend/${userid}`, { userid: friendid },{ headers: new Headers({Authorization: `Bearer ${this.token}`}) }).map(res => res.json());
   }
 
 
   getUser(id) :  Observable<User> {
-    return this.http.get(`${this._url}/user/${id}/`).map(response =>
+    return this.http.get(`${this._url}/user/${id}/`,{ headers: new Headers({Authorization: `Bearer ${this.token}`}) }).map(response =>
       response.json()).map(item =>
         User.fromJSON(item)
       );
   }
 
   get allusers(): Observable<User[]> {
-    return this.http.get(`${this._url}/all`)
+    return this.http.get(`${this._url}/all`,{ headers: new Headers({Authorization: `Bearer ${this.token}`}) })
       .map(response => response.json().map(item => new User(  item.username,item.firstname,item.lastname,item.birthdate,item._id,item.recipes,  item.friends)));
 
   }

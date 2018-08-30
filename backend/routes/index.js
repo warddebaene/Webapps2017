@@ -21,7 +21,7 @@ router.param('recipe', function(req, res, next, id) {
   });
 });  
 
-router.get('/API/recipes/', function(req, res, next) {
+router.get('/API/recipes/',auth, function(req, res, next) {
 	let query = Recipe.find().populate('ingredients');
   query.exec(function(err, recipes) {
     if (err) return next(err);
@@ -29,7 +29,7 @@ router.get('/API/recipes/', function(req, res, next) {
   })
 });
 
-router.post('/API/recipes/', function(req, res, next) {
+router.post('/API/recipes/',auth, function(req, res, next) {
 	let recipe = new Recipe({name: req.body.name, duration: req.body.duration, allergies: req.body.allergies,
     directions: req.body.directions, creator: req.body.creator, likes: req.body.likes});
 	recipe.save(function(err, rec){
@@ -56,7 +56,7 @@ router.delete('/API/recipe/:recipe', auth, function(req, res, next) {
     })
 });
 
-router.get('/API/upvote/:recipe', function(req, res, next) {
+router.get('/API/upvote/:recipe',auth, function(req, res, next) {
       req.recipe.likes++;
       req.recipe.save(function (err){
       if(err){ return next(err); }
@@ -64,7 +64,7 @@ router.get('/API/upvote/:recipe', function(req, res, next) {
   });
 });
 
-router.get('/API/downvote/:recipe', function(req, res, next) {
+router.get('/API/downvote/:recipe',auth, function(req, res, next) {
       req.recipe.likes--;
       req.recipe.save(function (err){
       if(err){ return next(err); }
@@ -73,7 +73,7 @@ router.get('/API/downvote/:recipe', function(req, res, next) {
 });
 
 
-router.post('/API/recipe/:recipe/ingredients',
+router.post('/API/recipe/:recipe/ingredients',auth,
   function(req, res, next) {
     let ing = new Ingredient(req.body);
 

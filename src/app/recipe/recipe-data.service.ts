@@ -15,7 +15,7 @@ private _recipes = new Array<Recipe>();
 	}
 
 	get recipes() : Observable<Recipe[]> {
-  	return this.http.get(`${this._appUrl}/recipes`).map(response =>
+  	return this.http.get(`${this._appUrl}/recipes`,{ headers: new Headers({Authorization: `Bearer ${this.auth.token}`}) }).map(response =>
       response.json().map(item =>
         new Recipe(item.name, item.duration, item.allergies, item.directions, item.creator, item.likes ,item.ingredients, item._id)
       )
@@ -56,7 +56,7 @@ private _recipes = new Array<Recipe>();
   }
 
   addIngredientToRecipe(ing: Ingredient, rec: Recipe): Observable<Ingredient> {
-    return this.http.post(`${this._appUrl}recipe/${rec.id}/ingredients`, ing)
+    return this.http.post(`${this._appUrl}recipe/${rec.id}/ingredients`, ing ,{ headers: new Headers({Authorization: `Bearer ${this.auth.token}`}) })
         .map(res => res.json())
         .map(item => Ingredient.fromJSON(item));
   }
